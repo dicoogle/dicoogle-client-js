@@ -15,12 +15,17 @@
     "api"
   ],
   "version": "6.0.0-rc.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dicoogle/dicoogle-client-js.git"
+  },
+  "homepage": "https://www.dicoogle.com",
   "engines": {
     "node": ">=16",
     "npm": ">=7"
   },
-  "main": "./lib/index.js",
   "type": "module",
+  "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "bin/",
@@ -62,10 +67,5 @@
     "test": "cross-env NODE_ENV=test mocha",
     "cover": "cross-env NODE_ENV=test c8 --reporter=html --reporter=lcov --reporter=text mocha",
     "coveralls": "cross-env NODE_ENV=test c8 report --reporter=text-lcov | coveralls"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bioinformatics-ua/dicoogle-client-js.git"
-  },
-  "homepage": "https://www.dicoogle.com"
+  }
 }
