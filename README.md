@@ -1,8 +1,8 @@
-[![npm version](https://badge.fury.io/js/dicoogle-client.svg)](https://badge.fury.io/js/dicoogle-client) [![Node.js CI](https://github.com/bioinformatics-ua/dicoogle-client-js/actions/workflows/node.js.yml/badge.svg)](https://github.com/bioinformatics-ua/dicoogle-client-js/actions/workflows/node.js.yml) [![Coverage Status](https://coveralls.io/repos/github/bioinformatics-ua/dicoogle-client-js/badge.svg?branch=master)](https://coveralls.io/github/bioinformatics-ua/dicoogle-client-js?branch=master)
+[![npm version](https://badge.fury.io/js/dicoogle-client.svg)](https://badge.fury.io/js/dicoogle-client) [![Node.js CI](https://github.com/dicoogle/dicoogle-client-js/actions/workflows/node.js.yml/badge.svg)](https://github.com/dicoogle/dicoogle-client-js/actions/workflows/node.js.yml) [![Coverage Status](https://coveralls.io/repos/github/dicoogle/dicoogle-client-js/badge.svg?branch=master)](https://coveralls.io/github/dicoogle/dicoogle-client-js?branch=master)
 
 # Dicoogle Client
 
-This is a web service client API to [Dicoogle](http://www.dicoogle.com), the open-source PACS archive, for use in JavaScript applications.
+This is a web service client API to [Dicoogle](https://www.dicoogle.com), the open-source PACS archive, for use in JavaScript applications.
 This library is compatible with browser-based JavaScript and Node.js. A CLI application for searching medical images in Dicoogle is also included (`dicoogle-query`).
 
 This library intends to be fully compatible with Dicoogle versions 2 and 3,
@@ -10,8 +10,8 @@ and may be updated as future versions of Dicoogle are released.
 
 ## Using the JavaScript API
 
-The full API is documented [here](https://bioinformatics-ua.github.io/dicoogle-client-js).
-Documentation was built from our Typescript definitions, which are also available.
+The full API is documented [here](https://dicoogle.github.io/dicoogle-client-js).
+Documentation was built from our TypeScript definitions, which are also available.
 
 ### Quick Start
 
