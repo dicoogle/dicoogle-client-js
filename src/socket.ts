@@ -50,9 +50,7 @@ export class Socket {
 
         if (typeof url !== 'string') {
             if (typeof window === 'object') {
-                /* eslint-disable no-undef */
                 this._url = window.location.protocol + "//" + window.location.host;
-                /* eslint-enable no-undef */
             } else {
                 throw new Error("Missing URL to Dicoogle services");
             }
