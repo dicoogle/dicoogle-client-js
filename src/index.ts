@@ -838,12 +838,10 @@ export class DicoogleAccess {
       url.push(encodeURIComponent(field));
       /* istanbul ignore next */
       if (process.env.NODE_ENV !== 'production') {
-        /* eslint-disable no-console */
         const values = Object.keys(IndexerSettings).map(k => IndexerSettings[k]); // values()
         if (values.indexOf(field) === -1) {
             console.error(`Warning: Attempting to get unrecognized indexer setting '${field}'.`);
         }
-        /* eslint-enable no-console */
       }
     }
 
@@ -898,9 +896,7 @@ export class DicoogleAccess {
         values.push('saveThumbnail')
         for (const field in fields) {
             if (values.indexOf(field) === -1) {
-                /* eslint-disable no-console */
                 console.error(`Warning: Attempting to set unrecognized indexer setting '${field}'.`);
-                /* eslint-enable no-console */
             }
         }
     }

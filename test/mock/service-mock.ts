@@ -19,10 +19,8 @@
 
 import dicoogleClient from '../../src/index.js';
 import nock from 'nock';
-import URL from 'url';
-import * as qs from 'querystring';
 
-function validateURI(uri) {
+function validateURI(uri: string | unknown) {
     if (typeof uri !== 'string') {
         return false;
     }
@@ -118,7 +116,6 @@ export default function createDicoogleMock(port = 8080): ReturnType<typeof dicoo
             description: "Another test server",
             isPublic: true
         }];
-        /* eslint-disable */
         const TRANSFER_SETTINGS = [{"uid":"1.2.840.10008.5.1.4.1.1.1","sop_name":"ComputedRadiographyImageStorage","options":[{"name":"ImplicitVRLittleEndian","value":true},{"name":"ExplicitVRLittleEndian","value":true},{"name":"DeflatedExplicitVRLittleEndian","value":false},{"name":"ExplicitVRBigEndian","value":false},{"name":"JPEGLossless","value":false},{"name":"JPEGLSLossless","value":true},{"name":"JPEGLosslessNonHierarchical14","value":false},{"name":"JPEG2000LosslessOnly","value":false},{"name":"JPEGBaseline1","value":true},{"name":"JPEGExtended24","value":false},{"name":"JPEGLSLossyNearLossless","value":false},{"name":"JPEG2000","value":false},{"name":"RLELossless","value":false},{"name":"MPEG2","value":false}]},{"uid":"1.2.840.10008.5.1.4.1.1.1.1","sop_name":"DigitalXRayImageStorageForPresentation","options":[{"name":"ImplicitVRLittleEndian","value":true},{"name":"ExplicitVRLittleEndian","value":true},{"name":"DeflatedExplicitVRLittleEndian","value":false},{"name":"ExplicitVRBigEndian","value":false},{"name":"JPEGLossless","value":false},{"name":"JPEGLSLossless","value":true},{"name":"JPEGLosslessNonHierarchical14","value":false},{"name":"JPEG2000LosslessOnly","value":false},{"name":"JPEGBaseline1","value":true},{"name":"JPEGExtended24","value":false},{"name":"JPEGLSLossyNearLossless","value":false},{"name":"JPEG2000","value":false},{"name":"RLELossless","value":false},{"name":"MPEG2","value":false}]}];
         const WEBUI_PLUGINS = [
             {"name":"dicoogle-enhance-plugin","version":"0.1.0","description":"Enhance your medical images!","dicoogle":{"slot-id":"result-options","caption":"Enhance","module-file":"module.js","roles":[]}},
@@ -126,7 +123,6 @@ export default function createDicoogleMock(port = 8080): ReturnType<typeof dicoo
             {"name":"dicoogle-react-todo","version":"0.1.0","description":"A TODO list for Dicoogle","dicoogle":{"caption":"TODO list","slot-id":"menu","module-file":"module.js","roles":["Healthcare"]}},
             {"name":"dicoogle-demo-plugin","version":"0.1.0","dicoogle":{"slot-id":"menu","caption":"Web Plugin Sample","module-file":"module.js"}}
             ];
-        /* eslint-enable */
 
         const PLUGINS = [
             {
@@ -186,7 +182,7 @@ export default function createDicoogleMock(port = 8080): ReturnType<typeof dicoo
             isRunning: true,
             autostart: false,
             port: 1045,
-            hostname: undefined
+            hostname: undefined as (string | undefined)
         };
         let TaskClosed = false;
         let TaskStopped = false;
@@ -509,21 +505,21 @@ export default function createDicoogleMock(port = 8080): ReturnType<typeof dicoo
             .query((query) => !!(query.autostart || query.port || query.hostname))
             .reply(200, function() {
                 // pass whatever is in the query parameters
-                const {query} = URL.parse(this.req.path, true);
-                const out: {[key: string]: string | boolean | number} = {
+                const query = new URL(this.req.path, BASE_URL).searchParams;
+                const out: {[key: string]: string | boolean | number | undefined} = {
                     success: true,
                 };
 
-                if (query.autostart) {
-                    QR.autostart = query.autostart == 'true';
+                if (query.has('autostart')) {
+                    QR.autostart = query.get('autostart') == 'true';
                     out.autostart = QR.autostart;
                 }
-                if (query.port) {
-                    QR.port = +query.port;
+                if (query.has('port')) {
+                    QR.port = +query.get('port')!;
                     out.port = QR.port;
                 }
-                if (query.hostname) {
-                    QR.hostname = query.hostname ? query.hostname : undefined;
+                if (query.has('hostname')) {
+                    QR.hostname = query.get('hostname') ?? undefined;
                     out.hostname = QR.hostname;
                 }
                 return out;
@@ -669,9 +665,9 @@ export default function createDicoogleMock(port = 8080): ReturnType<typeof dicoo
             .query(true)
             .twice()
             .reply((uri) => {
-                const qs = URL.parse(uri, true).query;
-                if ('zip' in qs) {
-                    Zip = !(qs.zip === 'false');
+                const qs = new URL(uri, BASE_URL).searchParams;
+                if (qs.has('zip')) {
+                    Zip = !(qs.get('zip') === 'false');
                 }
                 return [200, {}];
             })
@@ -682,9 +678,9 @@ export default function createDicoogleMock(port = 8080): ReturnType<typeof dicoo
             .query({ zip: /.*/ })
             .twice()
             .reply(function(uri) {
-                const qs = URL.parse(uri, true).query;
-                if ('zip' in qs) {
-                    Zip = !(qs.zip === 'false');
+                const qs = new URL(uri, BASE_URL).searchParams;
+                if (qs.has('zip')) {
+                    Zip = !(qs.get('zip') === 'false');
                 }
                 return [200, {}];
             })
@@ -737,8 +733,8 @@ export default function createDicoogleMock(port = 8080): ReturnType<typeof dicoo
             .query({ aetitle: /[A-Z0-9_ ]+/ })
             .reply(200, function() {
                 // apply side-effect
-                const qstring = URL.parse(this.req.path).query;
-                AETitle = String(qs.parse(qstring!).aetitle).trim();
+                const qstring = new URL(this.req.path, BASE_URL).searchParams;
+                AETitle = String(qstring.get('aetitle')).trim();
                 return 'success';
             });
         

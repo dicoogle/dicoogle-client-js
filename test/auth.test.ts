@@ -17,7 +17,6 @@
  * along with Dicoogle.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* eslint-env mocha */
 import {assert} from 'chai';
 import createMockedDicoogle from './mock/service-auth-mock.js';
 const UUID_REGEXP = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;

@@ -17,7 +17,6 @@
  * along with Dicoogle.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* eslint-env mocha */
 import {assert} from 'chai';
 import createMockedDicoogle from './mock/service-legacy-mock.js';
 import { DicoogleAccess } from '../src/index.js';

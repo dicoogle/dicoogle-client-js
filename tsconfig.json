@@ -1,7 +1,6 @@
 {
     "esm": true,
     "compilerOptions": {
-        "alwaysStrict": false,
         "module": "NodeNext",
         "target": "ES2019",
         "outDir": "lib",
