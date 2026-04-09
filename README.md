@@ -19,7 +19,7 @@ Documentation was built from our TypeScript definitions, which are also availabl
 import dicoogleClient from "dicoogle-client";
 
 // obtain a dicoogle access object
-const Dicoogle = DicoogleClient("localhost:8080");
+const Dicoogle = dicoogleClient("localhost:8080");
 
 // if required, login to the system before using
 await Dicoogle.login('admin', 'mysecretpassword');
@@ -59,6 +59,7 @@ Install this package globally (`npm install -g dicoogle-client`), then use `dico
 ## License
 
 Copyright (C) 2016  Universidade de Aveiro, DETI/IEETA, Bioinformatics Group - http://bioinformatics.ua.pt/
+Copyright (C) 2026  Dicoogle Team - https://dicoogle.com
 
 This software is part of Dicoogle.
 
